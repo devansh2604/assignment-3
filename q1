@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int MAX = 100;
+    int st[MAX];
+    int top = -1;
+    int choice, x;
+
+    do {
+        cout << "\nSTACK MENU\n"
+             << "1. push\n2. pop\n3. isEmpty\n4. isFull\n5. display\n6. peek\n7. exit\n"
+             << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: // push
+                if (top == MAX - 1) cout << "Stack Overflow\n";
+                else {
+                    cout << "Enter value: ";
+                    cin >> x;
+                    st[++top] = x;
+                    cout << "Pushed " << x << "\n";
+                }
+                break;
+
+            case 2: // pop
+                if (top == -1) cout << "Stack Underflow\n";
+                else cout << "Popped " << st[top--] << "\n";
+                break;
+
+            case 3: // isEmpty
+                cout << (top == -1 ? "Stack is Empty\n" : "Stack is NOT Empty\n");
+                break;
+
+            case 4: // isFull
+                cout << (top == MAX - 1 ? "Stack is Full\n" : "Stack is NOT Full\n");
+                break;
+
+            case 5: // display
+                if (top == -1) cout << "Stack Empty\n";
+                else {
+                    cout << "Stack (top->bottom): ";
+                    for (int i = top; i >= 0; i--) cout << st[i] << " ";
+                    cout << "\n";
+                }
+                break;
+
+            case 6: // peek
+                if (top == -1) cout << "Stack Empty\n";
+                else cout << "Top = " << st[top] << "\n";
+                break;
+
+            case 7:
+                cout << "Exiting...\n";
+                break;
+
+            default:
+                cout << "Invalid choice\n";
+        }
+    } while (choice != 7);
+
+    return 0;
+}
