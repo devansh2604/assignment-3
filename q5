@@ -1,0 +1,36 @@
+#include <iostream>
+#include <ctype.h>
+#include <math.h>
+using namespace std;
+
+int main() {
+    char post[300];
+    cout << "Enter postfix (digits only, no spaces): ";
+    cin >> post;
+
+    int st[300], top = -1;
+
+    for (int i = 0; post[i] != '\0'; i++) {
+        char c = post[i];
+        if (isdigit(c)) {
+            st[++top] = c - '0';
+        } else {
+            if (top < 1) { cout << "Invalid postfix\n"; return 0; }
+            int b = st[top--];
+            int a = st[top--];
+            int r = 0;
+            switch (c) {
+                case '+': r = a + b; break;
+                case '-': r = a - b; break;
+                case '*': r = a * b; break;
+                case '/': r = b==0 ? 0 : a / b; break; // basic safe guard
+                case '^': r = (int)pow(a, b); break;
+                default: cout << "Unknown op\n"; return 0;
+            }
+            st[++top] = r;
+        }
+    }
+    if (top != 0) { cout << "Invalid postfix\n"; }
+    else cout << "Result = " << st[top] << "\n";
+    return 0;
+}
